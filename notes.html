@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeWithHarry - Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base Dark Theme (default) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Dark background */
+            color: #e0e0e0; /* Light text */
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .navbar {
+            background-color: #16213e; /* Darker blue for navbar */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav-link {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #0f3460; /* Slightly lighter blue on hover */
+        }
+        .search-input {
+            background-color: #0f3460; /* Darker search input */
+            border: none;
+            color: #e0e0e0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .search-input::placeholder {
+            color: #a0a0a0;
+        }
+        .btn-primary {
+            background-color: #e94560; /* Reddish button */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #b82c44;
+        }
+        .btn-secondary {
+            background-color: #0f3460; /* Dark blue button */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #0a2340;
+        }
+
+        /* Dropdown specific styles */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #16213e;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            top: 100%; /* Position below the parent */
+            left: 0;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            color: #e0e0e0;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #0f3460;
+        }
+
+        /* Mobile menu specific styles */
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons, .search-bar {
+                display: none;
+            }
+            .mobile-menu-icon {
+                display: block;
+            }
+            .mobile-menu.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 4rem; /* Adjust based on navbar height */
+                left: 0;
+                width: 100%;
+                background-color: #16213e;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 10;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            .mobile-menu.open .nav-link,
+            .mobile-menu.open .btn-primary,
+            .mobile-menu.open .btn-secondary,
+            .mobile-menu.open .search-bar-mobile {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+                border-bottom: 1px solid #0f3460;
+            }
+            .mobile-menu.open .search-bar-mobile {
+                display: flex;
+                justify-content: center;
+                padding: 1rem;
+            }
+            .mobile-menu.open .search-bar-mobile .search-input {
+                width: 80%;
+            }
+            .mobile-menu.open .dropdown .dropdown-menu {
+                position: static; /* Allows dropdown to expand vertically */
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+
+        /* Search Modal Styles */
+        .search-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top with margin */
+            z-index: 100;
+            padding-top: 5vh; /* Adjust as needed */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .search-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-modal {
+            background-color: #16213e;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            padding: 1.5rem;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-modal-overlay.open .search-modal {
+            transform: translateY(0);
+        }
+
+        .search-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-modal-close {
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .search-modal-close:hover {
+            color: #e94560;
+        }
+
+        .search-modal-input-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-modal-input {
+            width: 100%;
+            background-color: #0f3460;
+            border: none;
+            color: #e0e0e0;
+            padding: 0.75rem 1rem 0.75rem 2.5rem; /* Left padding for icon */
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .search-modal-input::placeholder {
+            color: #a0a0a0;
+        }
+
+        .search-modal-input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0a0a0;
+        }
+
+        .search-modal-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-button {
+            background-color: #0f3460;
+            color: #e0e0e0;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.3s ease;
+        }
+        .category-button:hover, .category-button.active {
+            background-color: #e94560;
+        }
+
+        .search-results-message {
+            text-align: center;
+            color: #a0a0a0;
+            padding: 2rem 0;
+            transition: color 0.3s ease;
+        }
+
+        /* Light Theme Styles (applied when .light-mode class is present on body) */
+        body.light-mode {
+            background-color: #f0f2f5; /* Light background */
+            color: #333; /* Dark text */
+        }
+        body.light-mode .navbar {
+            background-color: #ffffff; /* Lighter navbar */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        body.light-mode .nav-link {
+            color: #333;
+        }
+        body.light-mode .nav-link:hover {
+            background-color: #e0e0e0;
+        }
+        body.light-mode .search-input {
+            background-color: #e9e9e9;
+            color: #333;
+        }
+        body.light-mode .search-input::placeholder {
+            color: #666;
+        }
+        body.light-mode .btn-primary {
+            background-color: #e94560;
+            color: white;
+        }
+        body.light-mode .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        body.light-mode .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        body.light-mode .dropdown-menu {
+            background-color: #ffffff;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+        }
+        body.light-mode .dropdown-menu a {
+            color: #333;
+        }
+        body.light-mode .dropdown-menu a:hover {
+            background-color: #e0e0e0;
+        }
+        body.light-mode .mobile-menu.open {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        body.light-mode .mobile-menu.open .nav-link,
+        body.light-mode .mobile-menu.open .btn-primary,
+        body.light-mode .mobile-menu.open .btn-secondary,
+        body.light-mode .mobile-menu.open .search-bar-mobile {
+            border-bottom: 1px solid #e0e0e0;
+        }
+        body.light-mode .search-modal {
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .search-modal-close {
+            color: #333;
+        }
+        body.light-mode .search-modal-close:hover {
+            color: #e94560;
+        }
+        body.light-mode .search-modal-input {
+            background-color: #e9e9e9;
+            color: #333;
+        }
+        body.light-mode .search-modal-input::placeholder {
+            color: #666;
+        }
+        body.light-mode .search-modal-input-icon {
+            color: #666;
+        }
+        body.light-mode .category-button {
+            background-color: #e9e9e9;
+            color: #333;
+        }
+        body.light-mode .category-button:hover, body.light-mode .category-button.active {
+            background-color: #e94560;
+            color: white;
+        }
+        body.light-mode .search-results-message {
+            color: #666;
+        }
+
+        /* Notes Page Specific Styles */
+        .header-section {
+            background-color: #16213e;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 0; /* Remove top margin if navbar is fixed/full width */
+        }
+        .header-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #e94560;
+        }
+        .header-section p {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .note-card {
+            background-color: #16213e;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .note-card h3 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: #e0e0e0;
+        }
+        .note-card p {
+            color: #a0a0a0;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .note-card .read-note {
+            background-color: #e94560;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: auto;
+        }
+        .note-card .read-note:hover {
+            background-color: #b82c44;
+        }
+        .note-meta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        /* Footer for Notes page */
+        .footer {
+            background-color: #0f3460;
+            padding: 3rem 1rem;
+            color: #e0e0e0;
+            text-align: center;
+            margin-top: 4rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .footer-links a {
+            color: #e0e0e0;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #e94560;
+        }
+        .social-icons a {
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #e94560;
+        }
+
+        /* Light Theme Overrides for Notes Page Specific Styles */
+        body.light-mode .header-section {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        body.light-mode .header-section h1 {
+            color: #e94560;
+        }
+        body.light-mode .header-section p {
+            color: #666;
+        }
+        body.light-mode .note-card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .note-card h3 {
+            color: #333;
+        }
+        body.light-mode .note-card p {
+            color: #666;
+        }
+        body.light-mode .note-meta {
+            color: #999;
+        }
+        body.light-mode .footer {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        body.light-mode .footer-links a,
+        body.light-mode .social-icons a {
+            color: #333;
+        }
+        body.light-mode .footer-links a:hover,
+        body.light-mode .social-icons a:hover {
+            color: #e94560;
+        }
+    </style>
+</head>
+<body>
+
+   
+    <nav class="navbar p-4 flex justify-between items-center relative">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-code text-2xl text-e94560"></i>
+                        <span class="text-xl font-bold">
+              <a href="/html-blog/index.html">CodieVerse</a></span>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex nav-links space-x-4">
+            <a href="/html-blog/index.html" class="nav-link">Home</a>
+            <a href="/html-blog/courses.html" class="nav-link">Courses</a>
+            <a href="/html-blog/tutorial.html" class="nav-link">Tutorials</a>
+            <a href="/html-blog/blogs.html" class="nav-link">Blog</a>
+            <a href="/html-blog/notes.html" class="nav-link">Notes</a>
+            <a href="/html-blog/contact.html" class="nav-link">Contact</a>
+        </div>
+
+        <!-- Search Bar and Auth Buttons -->
+        <div class="hidden md:flex items-center space-x-4">
+            <div class="search-bar flex items-center rounded-lg overflow-hidden cursor-pointer" id="desktop-search-trigger">
+                <input type="text" placeholder="Search..." class="search-input p-2 focus:outline-none w-48 pointer-events-none">
+                <span class="bg-0f3460 p-2">
+                    <i class="fas fa-search text-e0e0e0"></i>
+                </span>
+            </div>
+            <i class="fas fa-moon text-e0e0e0 cursor-pointer" id="theme-toggle"></i>
+        </div>
+
+        <!-- Mobile Menu Icon -->
+        <div class="md:hidden mobile-menu-icon cursor-pointer" id="mobile-menu-toggle">
+            <i class="fas fa-bars text-2xl"></i>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="mobile-menu hidden" id="mobile-menu">
+         <a href="/html-blog/index.html" class="nav-link">Home</a>
+            <a href="/html-blog/courses.html" class="nav-link">Courses</a>
+            <a href="/html-blog/tutorial.html" class="nav-link">Tutorials</a>
+            <a href="/html-blog/blogs.html" class="nav-link">Blog</a>
+            <a href="/html-blog/notes.html" class="nav-link">Notes</a>
+            <a href="/html-blog/contact.html" class="nav-link">Contact</a>
+        <div class="search-bar-mobile flex justify-center p-4">
+            <input type="text" placeholder="Search..." class="search-input p-2 focus:outline-none w-4/5 rounded-lg pointer-events-none">
+            <span class="bg-0f3460 p-2 rounded-r-lg cursor-pointer" id="mobile-search-trigger">
+                <i class="fas fa-search text-e0e0e0"></i>
+            </span>
+        </div>
+        <button class="btn-primary">Login</button>
+        <button class="btn-secondary">Signup</button>
+        <i class="fas fa-moon text-e0e0e0 cursor-pointer p-4 text-center" id="theme-toggle-mobile"></i>
+    </div>
+
+   
+
+    <header class="header-section">
+        <h1>Our Notes</h1>
+        <p>Concise summaries, quick references, and essential takeaways on various programming topics and concepts.</p>
+    </header>
+
+    <main class="py-16 px-4 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Note Card 1 -->
+            <div class="note-card">
+                <h3>JavaScript Closures Explained</h3>
+                <div class="note-meta">By Harry | August 5, 2024 | JavaScript</div>
+                <p>A quick guide to understanding JavaScript closures, their scope, and practical applications in modern web development.</p>
+                <a href="#" class="read-note">Read Note</a>
+            </div>
+
+            <!-- Note Card 2 -->
+            <div class="note-card">
+                <h3>Python Decorators Cheat Sheet</h3>
+                <div class="note-meta">By Harry | July 30, 2024 | Python</div>
+                <p>Learn how to use Python decorators effectively to modify functions or classes without changing their source code.</p>
+                <a href="#" class="read-note">Read Note</a>
+            </div>
+
+            <!-- Note Card 3 -->
+            <div class="note-card">
+                <h3>CSS Flexbox Fundamentals</h3>
+                <div class="note-meta">By Harry | July 22, 2024 | CSS</div>
+                <p>Master the basics of CSS Flexbox for creating flexible and responsive layout structures with ease.</p>
+                <a href="#" class="read-note">Read Note</a>
+            </div>
+
+            <!-- Note Card 4 -->
+            <div class="note-card">
+                <h3>Git Commands for Beginners</h3>
+                <div class="note-meta">By Harry | July 15, 2024 | Git</div>
+                <p>Essential Git commands for version control, perfect for those just starting with collaborative coding.</p>
+                <a href="#" class="read-note">Read Note</a>
+            </div>
+
+            <!-- Note Card 5 -->
+            <div class="note-card">
+                <h3>SQL JOIN Types Explained</h3>
+                <div class="note-meta">By Harry | July 8, 2024 | SQL</div>
+                <p>A clear explanation of different SQL JOIN types (INNER, LEFT, RIGHT, FULL) with examples for database queries.</p>
+                <a href="#" class="read-note">Read Note</a>
+            </div>
+
+            <!-- Note Card 6 -->
+            <div class="note-card">
+                <h3>React Hooks Quick Reference</h3>
+                <div class="note-meta">By Harry | July 1, 2024 | React</div>
+                <p>A concise reference for commonly used React Hooks like useState, useEffect, and useContext with practical snippets.</p>
+                <a href="#" class="read-note">Read Note</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="footer-col">
+                <h3 class="text-xl font-bold mb-4">CodeWithHarry</h3>
+                <p>Your ultimate platform for learning to code and building a successful tech career.</p>
+            </div>
+            <div class="footer-col">
+                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                <div class="flex flex-col space-y-2">
+                    <a href="#">Home</a>
+                    <a href="#">Courses</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
+                <div class="social-icons flex justify-center md:justify-start space-x-4">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-700">
+            <p>&copy; 2024 CodeWithHarry. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Search Modal Overlay -->
+    <div class="search-modal-overlay" id="search-modal-overlay">
+        <div class="search-modal" id="search-modal">
+            <div class="search-modal-header">
+                <h2 class="text-2xl font-bold">Search</h2>
+                <button class="search-modal-close" id="search-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-modal-input-wrapper">
+                <i class="fas fa-search search-modal-input-icon"></i>
+                <input type="text" placeholder="Type to search..." class="search-modal-input" id="modal-search-input">
+            </div>
+            <div class="search-modal-categories">
+                <button class="category-button active" data-category="all">All</button>
+                <button class="category-button" data-category="courses">Courses</button>
+                <button class="category-button" data-category="tutorials">Tutorials</button>
+                <button class="category-button" data-category="blog-posts">Blog Posts</button>
+            </div>
+            <div class="search-results-message" id="search-results-message">
+                Type at least 2 characters to search
+            </div>
+            <!-- Search results would be displayed here -->
+            <div id="search-results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // JavaScript for Search Modal
+        const searchModalOverlay = document.getElementById('search-modal-overlay');
+        const searchModalClose = document.getElementById('search-modal-close');
+        const desktopSearchTrigger = document.getElementById('desktop-search-trigger');
+        const mobileSearchTrigger = document.getElementById('mobile-search-trigger');
+        const modalSearchInput = document.getElementById('modal-search-input');
+        const searchResultsMessage = document.getElementById('search-results-message');
+        const categoryButtons = document.querySelectorAll('.category-button');
+
+        // Function to open the search modal
+        function openSearchModal() {
+            searchModalOverlay.classList.add('open');
+            modalSearchInput.focus(); // Focus on the input when modal opens
+        }
+
+        // Function to close the search modal
+        function closeSearchModal() {
+            searchModalOverlay.classList.remove('open');
+            modalSearchInput.value = ''; // Clear search input
+            searchResultsMessage.textContent = 'Type at least 2 characters to search'; // Reset message
+            // Reset active category button
+            categoryButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.category === 'all') {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        // Open modal on Ctrl + K
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && event.key === 'k') {
+                event.preventDefault(); // Prevent default browser search
+                openSearchModal();
+            }
+        });
+
+        // Open modal when clicking desktop search bar
+        desktopSearchTrigger.addEventListener('click', openSearchModal);
+
+        // Open modal when clicking mobile search icon
+        mobileSearchTrigger.addEventListener('click', openSearchModal);
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && searchModalOverlay.classList.contains('open')) {
+                closeSearchModal();
+            }
+        });
+
+        // Close modal when clicking the close button
+        searchModalClose.addEventListener('click', closeSearchModal);
+
+        // Close modal when clicking outside the modal content (on the overlay)
+        searchModalOverlay.addEventListener('click', (event) => {
+            if (event.target === searchModalOverlay) {
+                closeSearchModal();
+            }
+        });
+
+        // Placeholder for search logic
+        modalSearchInput.addEventListener('input', () => {
+            const query = modalSearchInput.value.trim();
+            if (query.length >= 2) {
+                searchResultsMessage.textContent = `Searching for "${query}"...`;
+                // In a real application, you would fetch search results here
+                // For demonstration, we'll just show a dynamic message
+            } else {
+                searchResultsMessage.textContent = 'Type at least 2 characters to search';
+            }
+        });
+
+        // Category button active state
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                // In a real application, you would filter search results based on the category
+                searchResultsMessage.textContent = `Category selected: ${button.textContent}. Type at least 2 characters to search.`;
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeToggleDesktop = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const body = document.body;
+
+        // Function to set the theme
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggleDesktop.classList.remove('fa-moon');
+                themeToggleDesktop.classList.add('fa-sun');
+                themeToggleMobile.classList.remove('fa-moon');
+                themeToggleMobile.classList.add('fa-sun');
+            } else {
+                body.classList.remove('light-mode');
+                themeToggleDesktop.classList.remove('fa-sun');
+                themeToggleDesktop.classList.add('fa-moon');
+                themeToggleMobile.classList.remove('fa-sun');
+                themeToggleMobile.classList.add('fa-moon');
+            }
+            localStorage.setItem('theme', theme); // Store preference
+        }
+
+        // Toggle theme on click
+        themeToggleDesktop.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        themeToggleMobile.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+            setTheme(savedTheme);
+        });
+
+    </script>
+</body>
+</html>

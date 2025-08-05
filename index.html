@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeWithHarry - Learn to Code</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="stylesheet" href="/html-blog/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar p-4 flex justify-between items-center relative">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-code text-2xl text-e94560"></i>
+            <span class="text-xl font-bold">
+              <a href="/html-blog/index.html">CodieVerse</a></span>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex nav-links space-x-4">
+            <a href="/html-blog/index.html" class="nav-link">Home</a>
+            <a href="/html-blog/courses.html" class="nav-link">Courses</a>
+            <a href="/html-blog/tutorial.html" class="nav-link">Tutorials</a>
+            <a href="/html-blog/blogs.html" class="nav-link">Blog</a>
+            <a href="/html-blog/notes.html" class="nav-link">Notes</a>
+            <a href="/html-blog/contact.html" class="nav-link">Contact</a>
+        </div>
+
+        <!-- Search Bar and Auth Buttons -->
+        <div class="hidden md:flex items-center space-x-4">
+            <div class="search-bar flex items-center rounded-lg overflow-hidden cursor-pointer" id="desktop-search-trigger">
+                <input type="text" placeholder="Search..." class="search-input p-2 focus:outline-none w-48 pointer-events-none">
+                <span class="bg-0f3460 p-2">
+                    <i class="fas fa-search text-e0e0e0"></i>
+                </span>
+            </div>
+           
+            <i class="fas fa-moon text-e0e0e0 cursor-pointer" id="theme-toggle"></i>
+        </div>
+
+        <!-- Mobile Menu Icon -->
+        <div class="md:hidden mobile-menu-icon cursor-pointer" id="mobile-menu-toggle">
+            <i class="fas fa-bars text-2xl"></i>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="mobile-menu hidden" id="mobile-menu">
+         <a href="/html-blog/index.html" class="nav-link">Home</a>
+            <a href="/html-blog/courses.html" class="nav-link">Courses</a>
+            <a href="/html-blog/tutorial.html" class="nav-link">Tutorials</a>
+            <a href="/html-blog/blogs.html" class="nav-link">Blog</a>
+            <a href="/html-blog/notes.html" class="nav-link">Notes</a>
+            <a href="/html-blog/contact.html" class="nav-link">Contact</a>
+        <div class="search-bar-mobile flex justify-center p-4">
+            <input type="text" placeholder="Search..." class="search-input p-2 focus:outline-none w-4/5 rounded-lg pointer-events-none">
+            <span class="bg-0f3460 p-2 rounded-r-lg cursor-pointer" id="mobile-search-trigger">
+                <i class="fas fa-search text-e0e0e0"></i>
+            </span>
+        </div>
+        <i class="fas fa-moon text-e0e0e0 cursor-pointer p-4 text-center" id="theme-toggle-mobile"></i>
+    </div>
+
+    <section class="hero-section max-w-7xl mx-auto">
+        <div class="hero-content">
+            <h1 class="text-5xl md:text-6xl">Welcome to CodieVerse!</h1>
+            <p class="text-lg md:text-xl">Your journey to becoming a coding expert starts here. Learn from the best, build amazing projects, and land your dream job.</p>
+            <button class="btn-primary text-xl px-8 py-3 mt-4 mb-4"><a href="/html-blog/tutorial.html"> Start Learning Now </a></button>
+        </div>
+        <div class="hero-image-container">
+            <img src="./assets/images/img1.jpeg" alt="Written on image is : choice is yours" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Technologies You Can Learn Here Section -->
+    <section class="py-16 px-4 bg-1a1a2e">
+        <h2 class="section-heading">Technologies You Can Learn Here</h2>
+    </section>
+
+    <!-- Technologies Carousel -->
+    <section class="technologies-carousel">
+        <div class="technologies-carousel-inner">
+            <div class="tech-item"><i class="fab fa-react"></i> React</div>
+            <div class="tech-item"><i class="fab fa-js-square"></i> Next.js</div>
+            <div class="tech-item"><i class="fab fa-html5"></i> HTML5</div>
+            <div class="tech-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+            <div class="tech-item"><i class="fab fa-python"></i> Python</div>
+            <div class="tech-item"><i class="fab fa-node-js"></i> Node.js</div>
+            <div class="tech-item"><i class="fab fa-angular"></i> Angular</div>
+            <div class="tech-item"><i class="fab fa-vuejs"></i> Vue.js</div>
+            <div class="tech-item"><i class="fas fa-database"></i> SQL</div>
+            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fab fa-docker"></i> Docker</div>
+            <div class="tech-item"><i class="fab fa-github"></i> Git</div>
+            <!-- Duplicate items for seamless loop -->
+            <div class="tech-item"><i class="fab fa-react"></i> React</div>
+            <div class="tech-item"><i class="fab fa-js-square"></i> Next.js</div>
+            <div class="tech-item"><i class="fab fa-html5"></i> HTML5</div>
+            <div class="tech-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+            <div class="tech-item"><i class="fab fa-python"></i> Python</div>
+            <div class="tech-item"><i class="fab fa-node-js"></i> Node.js</div>
+            <div class="tech-item"><i class="fab fa-angular"></i> Angular</div>
+            <div class="tech-item"><i class="fab fa-vuejs"></i> Vue.js</div>
+            <div class="tech-item"><i class="fas fa-database"></i> SQL</div>
+            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fab fa-docker"></i> Docker</div>
+            <div class="tech-item"><i class="fab fa-github"></i> Git</div>
+        </div>
+    </section>
+
+    <!-- Who Can Learn Section -->
+    <section class="who-can-learn-section">
+        <h2 class="section-heading">Who Can Learn at CodeWithHarry?</h2>
+        <ul>
+            <li>
+                <i class="fas fa-user-graduate"></i>
+                <p><strong>Absolute Beginners:</strong> No prior coding experience? No problem! Our courses are designed to take you from zero to hero.</p>
+            </li>
+            <li>
+                <i class="fas fa-briefcase"></i>
+                <p><strong>Non-Tech Backgrounds:</strong> Transitioning careers or just curious? Our simplified approach makes complex topics easy to grasp.</p>
+            </li>
+            <li>
+                <i class="fas fa-code-branch"></i>
+                <p><strong>Aspiring Developers:</strong> Enhance your skills, learn new frameworks, and build a strong portfolio for your dream job.</p>
+            </li>
+            <li>
+                <i class="fas fa-chart-line"></i>
+                <p><strong>Career Changers:</strong> Equip yourself with in-demand tech skills to open doors to exciting new opportunities.</p>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-heading">Why Choose CodeWithHarry?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Expert-Led Courses</h3>
+                <p>Learn from industry professionals with years of experience.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Hands-On Projects</h3>
+                <p>Apply your knowledge with real-world coding challenges and projects.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Career Guidance</h3>
+                <p>Receive assistance with job placement and career development.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <h2 class="section-heading">What Our Students Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="testimonial-card">
+                <p>"CodeWithHarry transformed my career! The courses are incredibly practical and the support is amazing."</p>
+                <div class="author">- Jane Doe, Web Developer</div>
+            </div>
+            <div class="testimonial-card">
+                <p>"As a complete beginner, I never thought I could code. CodeWithHarry made it easy and enjoyable!"</p>
+                <div class="author">- John Smith, Data Analyst</div>
+            </div>
+            <div class="testimonial-card">
+                <p>"The hands-on projects helped me build a portfolio that landed me my first tech job. Highly recommend!"</p>
+                <div class="author">- Emily White, Software Engineer</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trusted-section">
+  <h2 class="section-heading">Trusted by Thousands Worldwide</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div class="stat-card">
+      <div class="number" data-target="50000">0</div>
+      <div class="label">Students Enrolled</div>
+    </div>
+    <div class="stat-card">
+      <div class="number" data-target="4.9" data-decimal="true">0</div>
+      <div class="label">Average Rating</div>
+    </div>
+    <div class="stat-card">
+      <div class="number" data-target="200">0</div>
+      <div class="label">Courses Offered</div>
+    </div>
+  </div>
+</section>
+
+    <!-- Call to Action / More Courses Section -->
+    <section class="py-16 px-4 text-center bg-1a1a2e">
+        <h2 class="text-4xl font-bold mb-6 text-e0e0e0">Ready to Start Your Coding Journey?</h2>
+        <p class="text-lg mb-8 text-a0a0a0">Explore our wide range of courses and find the perfect fit for your learning goals.</p>
+        <button class="btn-primary text-xl px-8 py-3">
+          <a href="/html-blog/courses.html">Browse All Courses</a>
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="footer-col">
+                <h3 class="text-xl font-bold mb-4">CodeWithHarry</h3>
+                <p>Your ultimate platform for learning to code and building a successful tech career.</p>
+            </div>
+            <div class="footer-col">
+                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                <div class="flex flex-col space-y-2">
+                    <a href="#">Home</a>
+                    <a href="#">Courses</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
+                <div class="social-icons flex justify-center md:justify-start space-x-4">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-700">
+            <p>&copy; 2024 CodeWithHarry. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Search Modal Overlay -->
+    <div class="search-modal-overlay" id="search-modal-overlay">
+        <div class="search-modal" id="search-modal">
+            <div class="search-modal-header">
+                <h2 class="text-2xl font-bold">Search</h2>
+                <button class="search-modal-close" id="search-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-modal-input-wrapper">
+                <i class="fas fa-search search-modal-input-icon"></i>
+                <input type="text" placeholder="Type to search..." class="search-modal-input" id="modal-search-input">
+            </div>
+            <div class="search-modal-categories">
+                <button class="category-button active" data-category="all">All</button>
+                <button class="category-button" data-category="courses">Courses</button>
+                <button class="category-button" data-category="tutorials">Tutorials</button>
+                <button class="category-button" data-category="blog-posts">Blog Posts</button>
+            </div>
+            <div class="search-results-message" id="search-results-message">
+                Type at least 2 characters to search
+            </div>
+            <!-- Search results would be displayed here -->
+            <div id="search-results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // JavaScript for Search Modal
+        const searchModalOverlay = document.getElementById('search-modal-overlay');
+        const searchModalClose = document.getElementById('search-modal-close');
+        const desktopSearchTrigger = document.getElementById('desktop-search-trigger');
+        const mobileSearchTrigger = document.getElementById('mobile-search-trigger');
+        const modalSearchInput = document.getElementById('modal-search-input');
+        const searchResultsMessage = document.getElementById('search-results-message');
+        const categoryButtons = document.querySelectorAll('.category-button');
+
+        // Function to open the search modal
+        function openSearchModal() {
+            searchModalOverlay.classList.add('open');
+            modalSearchInput.focus(); // Focus on the input when modal opens
+        }
+
+        // Function to close the search modal
+        function closeSearchModal() {
+            searchModalOverlay.classList.remove('open');
+            modalSearchInput.value = ''; // Clear search input
+            searchResultsMessage.textContent = 'Type at least 2 characters to search'; // Reset message
+            // Reset active category button
+            categoryButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.category === 'all') {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        // Open modal on Ctrl + K
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && event.key === 'k') {
+                event.preventDefault(); // Prevent default browser search
+                openSearchModal();
+            }
+        });
+
+        // Open modal when clicking desktop search bar
+        desktopSearchTrigger.addEventListener('click', openSearchModal);
+
+        // Open modal when clicking mobile search icon
+        mobileSearchTrigger.addEventListener('click', openSearchModal);
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && searchModalOverlay.classList.contains('open')) {
+                closeSearchModal();
+            }
+        });
+
+        // Close modal when clicking the close button
+        searchModalClose.addEventListener('click', closeSearchModal);
+
+        // Close modal when clicking outside the modal content (on the overlay)
+        searchModalOverlay.addEventListener('click', (event) => {
+            if (event.target === searchModalOverlay) {
+                closeSearchModal();
+            }
+        });
+
+        // Placeholder for search logic
+        modalSearchInput.addEventListener('input', () => {
+            const query = modalSearchInput.value.trim();
+            if (query.length >= 2) {
+                searchResultsMessage.textContent = `Searching for "${query}"...`;
+                // In a real application, you would fetch search results here
+                // For demonstration, we'll just show a dynamic message
+            } else {
+                searchResultsMessage.textContent = 'Type at least 2 characters to search';
+            }
+        });
+
+        // Category button active state
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                // In a real application, you would filter search results based on the category
+                searchResultsMessage.textContent = `Category selected: ${button.textContent}. Type at least 2 characters to search.`;
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeToggleDesktop = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const body = document.body;
+
+        // Function to set the theme
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggleDesktop.classList.remove('fa-moon');
+                themeToggleDesktop.classList.add('fa-sun');
+                themeToggleMobile.classList.remove('fa-moon');
+                themeToggleMobile.classList.add('fa-sun');
+            } else {
+                body.classList.remove('light-mode');
+                themeToggleDesktop.classList.remove('fa-sun');
+                themeToggleDesktop.classList.add('fa-moon');
+                themeToggleMobile.classList.remove('fa-sun');
+                themeToggleMobile.classList.add('fa-moon');
+            }
+            localStorage.setItem('theme', theme); // Store preference
+        }
+
+        // Toggle theme on click
+        themeToggleDesktop.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        themeToggleMobile.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+            setTheme(savedTheme);
+        });
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll('.number');
+  
+  const animateCounter = (counter) => {
+    const target = parseFloat(counter.getAttribute('data-target'));
+    const isDecimal = counter.getAttribute('data-decimal') === "true";
+    let count = 0;
+    const increment = target / 200; // adjust speed (200 frames)
+
+    const updateCount = () => {
+      count += increment;
+      if (count < target) {
+        counter.textContent = isDecimal ? count.toFixed(1) : Math.floor(count);
+        requestAnimationFrame(updateCount);
+      } else {
+        counter.textContent = isDecimal ? target.toFixed(1) : target.toLocaleString();
+        if (!isDecimal && target >= 1000) {
+          counter.textContent += "+"; // Add + for large numbers
+        }
+      }
+    };
+
+    updateCount();
+  };
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => {
+    observer.observe(counter);
+  });
+});
+    </script>
+</body>
+</html>
